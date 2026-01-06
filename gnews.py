@@ -24,6 +24,7 @@ from enum import Enum
 import httpx
 from pydantic import BaseModel, Field, ConfigDict
 from mcp.server.fastmcp import FastMCP
+from mcp.server.transport_security import TransportSecuritySettings
 
 
 # Configure logging for STDIO transport (writes to stderr)
@@ -34,10 +35,18 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Create FastMCP server
+# Create FastMCP server with transport security settings
 mcp = FastMCP(
     name="gnews_mcp",
     instructions="A Model Context Protocol server for accessing GNews API. Provides tools to search news articles and get top headlines.",
+    transport_security=TransportSecuritySettings(
+        allowed_hosts=[
+            "demo-gnews-remotemcp-auth-dv8h.onrender.com",
+            "localhost",
+            "127.0.0.1",
+        ],
+        allowed_origins=["*"],  # Allow all origins since we handle auth separately
+    ),
 )
 
 # Supported languages and countries (from GNews API documentation)
