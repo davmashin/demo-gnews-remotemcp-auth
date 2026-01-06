@@ -41,7 +41,7 @@ async def oauth_protected_resource_metadata():
             "bearer_methods_supported": ["header"],
             "resource": settings.SCALEKIT_RESOURCE_NAME,
             "resource_documentation": settings.SCALEKIT_RESOURCE_DOCS_URL,
-            "scopes_supported": ["search:read"],
+            "scopes_supported": ["gnews:read"],
         }
     )
 
